@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tugas Algoritma</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1e3a8a, #3b82f6);
+    min-height: 100vh;
+    padding: 25px;
+    color: white;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.header h1 {
+    font-size: 34px;
+    background: linear-gradient(to right, #93c5fd, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header p {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+.header::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 3px;
+    margin: 12px auto 0;
+    background: linear-gradient(to right, #60a5fa, transparent);
+    border-radius: 10px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 22px;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.15), transparent);
+    top: -50%;
+    left: -50%;
+    opacity: 0;
+    transition: 0.5s;
+    pointer-events: none; 
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+button {
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+    border: none;
+    padding: 10px 16px;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: scale(1.08);
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+    outline: none;
+}
+
+.output {
+    margin-top: 15px;
+    background: rgba(255,255,255,0.15);
+    padding: 12px;
+    border-radius: 10px;
+    min-height: 50px;
+    white-space: pre-line;
+    max-height: 120px;
+    overflow-y: auto;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.show {
+    animation: showResult 0.5s forwards;
+}
+
+.code-title {
+    margin-top: 15px;
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+pre {
+    margin-top: 5px;
+    background: #020617;
+    color: #38bdf8;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    overflow-x: auto;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+@keyframes showResult {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+    <h1>Tugas Algoritma</h1>
+    <p>Ommar Zaidan Ahmad | 251011700963</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+    <h2>FizzBuzz</h2>
+    <button onclick="runFizzBuzz()">Jalankan</button>
+    <div class="output" id="fizzOutput"></div>
+
+    <div class="code-title">Python Code:</div>
+<pre>
+for i in range(1, 101):
+    if i % 3 == 0 and i % 5 == 0:
+        print("FizzBuzz")
+    elif i % 3 == 0:
+        print("Fizz")
+    elif i % 5 == 0:
+        print("Buzz")
+    else:
+        print(i)
+</pre>
+</div>
+
+<div class="card">
+    <h2>Konversi Hari</h2>
+    <input type="number" id="hari" placeholder="Masukkan jumlah hari">
+    <button onclick="convertHari()">Konversi</button>
+    <div class="output" id="hariOutput"></div>
+
+    <div class="code-title">Python Code:</div>
+<pre>
+hari = int(input("masukan jumlah hari: "))
+
+tahun = hari // 365
+sisa_hari = hari % 365
+
+bulan = sisa_hari // 30
+hari_sisa = sisa_hari % 30
+</pre>
+</div>
+
+</div>
+
+<script>
+function runFizzBuzz() {
+    let result = "";
+    for (let i = 1; i <= 100; i++) {
+        if (i % 3 === 0 && i % 5 === 0) result += "FizzBuzz ";
+        else if (i % 3 === 0) result += "Fizz ";
+        else if (i % 5 === 0) result += "Buzz ";
+        else result += i + " ";
+    }
+
+    let el = document.getElementById("fizzOutput");
+    el.classList.remove("show");
+    void el.offsetWidth;
+    el.innerText = result;
+    el.classList.add("show");
+}
+
+function convertHari() {
+    let hari = parseInt(document.getElementById("hari").value);
+    let el = document.getElementById("hariOutput");
+
+    if (isNaN(hari)) {
+        el.innerText = "Masukkan angka dulu!";
+        el.classList.add("show");
+        return;
+    }
+
+    let tahun = Math.floor(hari / 365);
+    let sisa = hari % 365;
+    let bulan = Math.floor(sisa / 30);
+    let hari_sisa = sisa % 30;
+
+    el.classList.remove("show");
+    void el.offsetWidth;
+
+    el.innerText =
+        "Tahun: " + tahun + "\n" +
+        "Bulan: " + bulan + "\n" +
+        "Hari: " + hari_sisa;
+
+    el.classList.add("show");
+}
+</script>
+
+</body>
+</html>
